@@ -1,18 +1,23 @@
 import Link from "next/link";
+import Image from "next/image";
 import { UsersIcon } from "@heroicons/react/24/solid";
 
 export default function CabinCard({ cabin }) {
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
 
   return (
-    <div className="flex border border-primary-800">
-      <img
-        src={image}
-        alt={`Cabin ${name}`}
-        className="flex-1 border-r border-primary-800"
-      />
+    <div className="grid grid-rows-[2fr_1fr] border border-primary-800">
+      <div className="relative overflow-hidden border-b border-primary-800">
+        <Image
+          src={image}
+          alt={`Cabin ${name}`}
+          fill
+          sizes="50vw"
+          className="scale-105 transform object-cover"
+        />
+      </div>
 
-      <div className="flex-grow">
+      <div>
         <div className="bg-primary-950 px-7 pb-4 pt-5">
           <h3 className="mb-3 text-2xl font-semibold text-accent-500">
             Cabin {name}

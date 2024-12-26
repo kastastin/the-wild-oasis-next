@@ -1,6 +1,25 @@
+import { notFound } from "next/navigation";
 import { eachDayOfInterval } from "date-fns";
 
+import { supabase } from "@/app/_lib/supabase";
+
 // <-- GET -->
+
+export const getCabins = async function () {
+  const { data, error } = await supabase
+    .from("cabins")
+    .select("id, name, maxCapacity, regularPrice, discount, image")
+    .order("name");
+
+  if (error) {
+    console.error(error);
+    throw new Error("Cabins could not be loaded");
+  }
+
+  return data;
+};
+
+// await new Promise((res) => setTimeout(res, 1000)); // For testing
 
 export async function getCabin(id) {
   const { data, error } = await supabase
@@ -9,10 +28,10 @@ export async function getCabin(id) {
     .eq("id", id)
     .single();
 
-  // For testing
-  // await new Promise((res) => setTimeout(res, 1000));
-
-  if (error) console.error(error);
+  if (error) {
+    console.error(error);
+    notFound();
+  }
 
   return data;
 }
@@ -28,20 +47,6 @@ export async function getCabinPrice(id) {
 
   return data;
 }
-
-export const getCabins = async function () {
-  const { data, error } = await supabase
-    .from("cabins")
-    .select("id, name, maxCapacity, regularPrice, discount, image")
-    .order("name");
-
-  if (error) {
-    console.error(error);
-    throw new Error("Cabins could not be loaded");
-  }
-
-  return data;
-};
 
 // Guests are uniquely identified by their email address
 export async function getGuest(email) {
@@ -76,7 +81,7 @@ export async function getBookings(guestId) {
     // We actually also need data on the cabins as well.
     // But let's ONLY take the data that we actually need, in order to reduce downloaded data.
     .select(
-      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
+      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)",
     )
     .eq("guestId", guestId)
     .order("startDate");
@@ -133,7 +138,7 @@ export async function getSettings() {
 export async function getCountries() {
   try {
     const res = await fetch(
-      "https://restcountries.com/v2/all?fields=name,flag"
+      "https://restcountries.com/v2/all?fields=name,flag",
     );
     const countries = await res.json();
     return countries;

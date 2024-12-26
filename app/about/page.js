@@ -40,6 +40,7 @@ export default function Page() {
           src="/about-1.jpg"
           alt="Family sitting around a fire pit in front of cabin"
           fill
+          sizes="50vw"
           className="object-cover"
         />
       </div>
@@ -49,6 +50,7 @@ export default function Page() {
           src="/about-2.jpg"
           alt="Family that manages The Wild Oasis"
           fill
+          sizes="50vw"
           className="object-cover"
         />
       </div>

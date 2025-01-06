@@ -1,3 +1,9 @@
+/**
+ * Pass server components (SelectCountry)
+ * to client components (UpdateProfileForm) as props
+ * Next.js Docs: https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#supported-pattern-passing-server-components-to-client-components-as-props
+ */
+
 "use client";
 
 import { useState } from "react";

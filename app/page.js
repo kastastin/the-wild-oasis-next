@@ -5,7 +5,7 @@ import bgImg from "@/public/bg.png";
 
 export default function Page() {
   return (
-    <div className="mt-24">
+    <div className="absolute inset-0">
       <Image
         src={bgImg}
         alt="Mountains and forests with two cabins"
@@ -15,7 +15,7 @@ export default function Page() {
         className="object-fit object-top"
       />
 
-      <div className="relative z-10 text-center">
+      <div className="relative z-10 mt-56 text-center">
         <h1 className="mb-10 text-8xl font-normal tracking-tight text-primary-50">
           Welcome to paradise.
         </h1>

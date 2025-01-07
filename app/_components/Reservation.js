@@ -20,10 +20,11 @@ export default async function Reservation({ cabin }) {
         settings={settings}
         bookedDates={bookedDates}
       />
-      {session?.user ? (
-        <ReservationForm user={session.user} cabin={cabin} />
-      ) : (
+      
+      {!session ? (
         <LoginMessage />
+      ) : (
+        <ReservationForm user={session.user} cabin={cabin} />
       )}
     </div>
   );

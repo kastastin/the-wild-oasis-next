@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
+
 import { useReservation } from "@/app/_components/ReservationContext";
 
-export default function ReservationForm({ cabin }) {
+export default function ReservationForm({ user, cabin }) {
   const { range } = useReservation();
 
   const { maxCapacity } = cabin;
@@ -12,22 +14,19 @@ export default function ReservationForm({ cabin }) {
       <div className="flex items-center justify-between bg-primary-800 px-16 py-2 text-primary-300">
         <p>Logged in as</p>
 
-        {/* <div className='flex gap-4 items-center'>
-          <img
-            // Important to display google profile images
-            referrerPolicy='no-referrer'
-            className='h-8 rounded-full'
-            src={user.image}
-            alt={user.name}
-          />
+        <div className="flex items-center gap-4">
+          <div className="relative size-8">
+            <Image
+              src={user.image}
+              alt={user.name}
+              fill
+              sizes="50vw"
+              className="rounded-full object-cover"
+            />
+          </div>
           <p>{user.name}</p>
-        </div> */}
+        </div>
       </div>
-
-      {/* TODO: Remove */}
-      <p>
-        {String(range.from)} - {String(range.to)}
-      </p>
 
       <form className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg">
         <div className="space-y-2">

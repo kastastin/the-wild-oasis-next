@@ -1,6 +1,11 @@
 import Link from "next/link";
 
-export default function Navigation() {
+import { auth } from "@/app/_lib/auth";
+import Image from "next/image";
+
+export default async function Navigation() {
+  const session = await auth();
+
   return (
     <nav className="z-10 text-xl">
       <ul className="flex items-center gap-16">
@@ -23,9 +28,21 @@ export default function Navigation() {
         <li>
           <Link
             href="/account"
-            className="transition-colors hover:text-accent-400"
+            className="flex items-center gap-4 transition-colors hover:text-accent-400"
           >
-            Guest area
+            {session?.user?.image && (
+              <div className="relative size-8">
+                <Image
+                  src={session.user.image}
+                  alt={session.user.image}
+                  fill
+                  sizes="50vw"
+                  className="rounded-full object-cover"
+                />
+              </div>
+            )}
+
+            <span>Guest area</span>
           </Link>
         </li>
       </ul>

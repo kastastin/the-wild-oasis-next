@@ -1,3 +1,6 @@
+import { auth } from "@/app/_lib/auth";
+import { getGuest } from "@/app/_lib/data-service";
+
 import SelectCountry from "@/app/_components/SelectCountry";
 import UpdateProfileForm from "@/app/_components/UpdateProfileForm";
 
@@ -5,10 +8,9 @@ export const metadata = {
   title: "Update profile",
 };
 
-export default function Page() {
-  // TODO: Check UpdateProfileForm.js (variables are copied there too)
-  const countryFlag = "pt.jpg";
-  const nationality = "portugal";
+export default async function Page() {
+  const session = await auth();
+  const guest = await getGuest(session.user.email);
 
   return (
     <>
@@ -21,12 +23,12 @@ export default function Page() {
         faster and smoother. See you soon!
       </p>
 
-      <UpdateProfileForm>
+      <UpdateProfileForm guest={guest}>
         <SelectCountry
           name="nationality"
           id="nationality"
           className="w-full rounded-sm bg-primary-200 px-5 py-3 text-primary-800 shadow-sm"
-          defaultCountry={nationality}
+          defaultCountry={guest.nationality}
         />
       </UpdateProfileForm>
     </>
